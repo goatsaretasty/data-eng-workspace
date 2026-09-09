@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: daily_summary
+    description: Daily trip volume and revenue summary, built from cleaned NYC Yellow Taxi trips.
+    columns:
+      - name: trip_date
+        tests:
+          - unique
+          - not_null
+      - name: total_trips
+        tests:
+          - not_null
+
+  - name: hourly_patterns
+    description: Trip and tipping patterns by pickup hour of day.
+    columns:
+      - name: pickup_hour
+        tests:
+          - unique
+          - not_null

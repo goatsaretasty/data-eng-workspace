@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: stg_yellow_tripdata
+    description: Cleaned NYC Yellow Taxi trip records for Jan 2024, filtered for basic data quality.
+    columns:
+      - name: vendor_id
+        tests:
+          - not_null
+      - name: pickup_at
+        tests:
+          - not_null
+      - name: total_amount
+        tests:
+          - not_null

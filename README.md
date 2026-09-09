@@ -18,3 +18,20 @@ Cloud dev environment via GitHub Codespaces — no local install, runs on GitHub
 Local dev on this machine chokes under the RAM required for even one Electron IDE plus a browser. Codespaces runs the actual compute (Docker, DuckDB, dbt, Jupyter kernels) on GitHub's infrastructure; the laptop only needs to render a browser tab.
 
 Free tier: 60 core-hours/month, more with GitHub Pro/paid plans.
+
+## Portfolio project: NYC Yellow Taxi pipeline
+
+An ELT pipeline built entirely in the cloud dev environment above:
+
+- **Extract/Load**: DuckDB reads NYC TLC's public Yellow Taxi trip data directly from its S3-backed HTTPS source as Parquet — no download or external database needed (`models/staging/stg_yellow_tripdata.sql`).
+- **Transform**: dbt models clean and aggregate the raw trips into two marts — `daily_summary` (volume/revenue by day) and `hourly_patterns` (demand and tipping by hour) — with schema tests (`not_null`, `unique`) enforcing data quality.
+- **Document/Publish**: `dbt docs generate` builds a static site (data lineage graph, column-level docs, compiled SQL) published via GitHub Pages — see the live link at the top of the repo page once Pages is enabled.
+
+Rebuild it yourself inside the Codespace:
+
+```bash
+dbt deps --profiles-dir .
+dbt run --profiles-dir .
+dbt test --profiles-dir .
+dbt docs generate --profiles-dir . --static
+```
