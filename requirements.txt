@@ -1,0 +1,8 @@
+pandas
+polars
+duckdb
+jupyterlab
+dbt-duckdb
+sqlalchemy
+pyarrow
+requests
